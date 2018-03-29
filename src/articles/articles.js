@@ -1,0 +1,32 @@
+import React from 'react';
+
+import Article from '../article/article'
+
+class Articles extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			nbArticles: 2
+		}
+	}
+
+	renderArticles() {
+		let articles = [];
+		for (let i = 0; i < this.props.nbArticles; i++) {
+			articles.push(<Article key={i} id={i}/>)
+		}
+		return articles;
+	}
+
+  render() {
+    return (
+      <div>
+        <h4>Articles</h4>
+				{this.renderArticles()}
+      </div>
+    );
+  }
+}
+
+export default Articles;
