@@ -6,18 +6,23 @@ class Recording extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sum: 0
-    }
+      sum: 0,
+      nbArticles: 2
+    };
+    this.addArticle = this.addArticle.bind(this);
   }
 
   addArticle() {
+    this.setState(state => ({
+      nbArticles: ++state.nbArticles
+    }));
   }
 
   render() {
     return (
       <div>
         <p>{this.state.sum}</p>
-        <Articles nbArticles={3} />
+        <Articles nbArticles={this.state.nbArticles} />
         <button onClick={this.addArticle}>Add</button>
       </div>
     );
