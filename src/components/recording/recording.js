@@ -33,11 +33,11 @@ class Recording extends React.Component {
     return (
       <div>
         <h2>Sum: {this.state.sum}</h2>
+        <AddForm article={this.handleToAdd.bind(this)} />
         <Articles
           articles={this.state.articles}
           nbArticles={this.state.nbArticles}
         />
-        <AddForm article={this.handleToAdd.bind(this)} />
       </div>
     );
   }
