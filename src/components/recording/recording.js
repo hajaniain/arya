@@ -23,7 +23,7 @@ class Recording extends React.Component {
   }
 
   render() {
-    const sum = articles.reduce(
+    const sum = this.state.articles.reduce(
       (prev, next) => prev + parseInt(next.price, 10),
       0
     );

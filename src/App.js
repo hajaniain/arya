@@ -6,14 +6,14 @@ import './App.css';
 import './assets/react-toolbox/theme.css';
 import 'material-design-icons/iconfont/material-icons.css';
 
-import Recording from './components/recording/recording';
+import Records from './components/records/records';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <ThemeProvider theme={theme}>
-          <Recording />
+          <Records />
         </ThemeProvider>
       </div>
     );
