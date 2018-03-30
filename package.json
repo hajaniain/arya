@@ -15,7 +15,9 @@
       "DATE_PICKER",
       "LIST",
       "DIALOG",
-      "INPUT"
+      "INPUT",
+      "CARD",
+      "LAYOUT"
     ],
     "customProperties": {
       "animation-duration": "0.3s",

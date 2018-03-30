@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-toolbox/lib/button/Button';
 
 import Articles from '../articles/articles';
-import AddDialog from '../add-dialog/add-dialog';
+import AddForm from '../add-form/add-form';
 
 class Recording extends React.Component {
   constructor(props) {
@@ -27,8 +27,8 @@ class Recording extends React.Component {
       <div>
         <p>{this.state.sum}</p>
         <Articles nbArticles={this.state.nbArticles} />
+        <AddForm/>
         <Button onClick={this.addArticle} icon='add' label='Add' raised primary />
-        <AddDialog active={this.state.openAddDialog}/>
       </div>
     );
   }

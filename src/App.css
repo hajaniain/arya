@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #fafafa;
+  margin: 0px 20px 0px 20px;
 }
 
 @keyframes App-logo-spin {
