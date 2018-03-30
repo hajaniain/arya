@@ -11,30 +11,50 @@ class AddForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: 0
+      name: '',
+      price: 0
     };
   }
 
   handleChange = (name, value) => {
-    this.setState({ ...this.state, [name]: parseInt(value, 10) });
+    this.setState({ ...this.state, [name]: value });
   };
 
+  addClicked() {
+    this.inputPrice.focus();
+    this.setState({ price: 0, name: '' });
+  }
+
   render() {
+    const handleToAdd = this.props.article;
     return (
       <Card className="Add-card">
-        <CardText className="grid-container">
+        <CardText>
+          <Input
+            type="text"
+            label="Name"
+            value={this.state.name}
+            onChange={this.handleChange.bind(this, 'name')}
+          />
           <Input
             type="number"
-            label="Amount"
-            name="amount"
-            className="add-input"
-            value={this.state.amount}
-            onChange={this.handleChange.bind(this, 'amount')}
+            label="Price"
+            value={this.state.price}
+            onChange={this.handleChange.bind(this, 'price')}
             maxLength={5}
+            innerRef={ref => {
+              this.inputPrice = ref;
+            }}
           />
-          <div className="btn-grid">
-            <Button className="add-btn" icon="check" label="" raised accent/>
-          </div>
+          <Button
+            icon="check"
+            onClick={() => {
+              this.addClicked();
+              return handleToAdd(this.state);
+            }}
+            raised
+            accent
+          />
         </CardText>
       </Card>
     );

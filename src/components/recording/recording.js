@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from 'react-toolbox/lib/button/Button';
 
 import Articles from '../articles/articles';
 import AddForm from '../add-form/add-form';
@@ -9,26 +8,36 @@ class Recording extends React.Component {
     super(props);
     this.state = {
       sum: 0,
-      nbArticles: 0,
-      openAddDialog: false
+      articles: []
     };
     this.addArticle = this.addArticle.bind(this);
   }
 
-  addArticle() {
+  addArticle(article) {
+    const articles = [...this.state.articles, article];
+    const sum = articles.reduce(
+      (prev, next) => prev + parseInt(next.price, 10),
+      0
+    );
     this.setState(state => ({
-      nbArticles: ++state.nbArticles,
-      openAddDialog: true
+      articles,
+      sum
     }));
+  }
+
+  handleToAdd(article) {
+    this.addArticle(article);
   }
 
   render() {
     return (
       <div>
-        <p>{this.state.sum}</p>
-        <Articles nbArticles={this.state.nbArticles} />
-        <AddForm/>
-        <Button onClick={this.addArticle} icon='add' label='Add' raised primary />
+        <h2>Sum: {this.state.sum}</h2>
+        <Articles
+          articles={this.state.articles}
+          nbArticles={this.state.nbArticles}
+        />
+        <AddForm article={this.handleToAdd.bind(this)} />
       </div>
     );
   }

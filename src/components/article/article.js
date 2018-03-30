@@ -13,8 +13,9 @@ class Article extends React.Component {
   }
 
   render() {
-    const name = `Article ${this.props.id + 1}`;
-    const price = this.state.price.toString();
+    const name = this.props.name || `Article ${this.props.id + 1}`;
+    const price = this.props.price.toString();
+
     return (
       <List selectable ripple>
         <ListItem caption={price} legend={name} />
