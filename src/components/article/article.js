@@ -7,9 +7,7 @@ import ListItem from 'react-toolbox/lib/list/ListItem';
 class Article extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      price: 200
-    };
+    this.state = {};
   }
 
   render() {

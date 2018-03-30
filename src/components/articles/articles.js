@@ -20,7 +20,7 @@ class Articles extends React.Component {
   render() {
     return (
       <div>
-        <h2>Articles</h2>
+        <h4>Articles ({this.props.articles.length})</h4>
         {this.renderArticles()}
       </div>
     );

@@ -41,7 +41,6 @@ class AddForm extends React.Component {
             label="Price"
             value={this.state.price}
             onChange={this.handleChange.bind(this, 'price')}
-            maxLength={5}
             innerRef={ref => {
               this.inputPrice = ref;
             }}
