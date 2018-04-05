@@ -36,17 +36,14 @@ class Records extends React.Component {
   }
 
   add() {
-    localStorage.setItem(
-      'records',
-      JSON.stringify([
-        ...this.state.records,
-        {
-          id: `${this.state.records.length}`,
-          name: `${new Date().toLocaleDateString('en-US')}`,
-          articles: []
-        }
-      ])
-    );
+    const newRecord = {
+      id: `${this.state.records.length}`,
+      name: `${new Date().toLocaleDateString('en-US')}`,
+      articles: []
+    };
+    const records = JSON.stringify([...this.state.records, newRecord]);
+
+    localStorage.setItem('records', records);
     this.props.history.push(`/recording/${this.state.records.length}`);
   }
 
