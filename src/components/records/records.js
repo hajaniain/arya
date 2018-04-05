@@ -1,19 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Card from 'react-toolbox/lib/card/Card';
+import CardText from 'react-toolbox/lib/card/CardText';
 import './records.css';
+
 import Record from '../record/record';
 
 class Records extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    const records = localStorage.getItem('records');
+    this.state = {
+      records: records ? JSON.parse(records) : []
+    };
+    this.add = this.add.bind(this);
   }
 
   renderRecords() {
-    let records = localStorage.getItem('records');
-    if (records) {
-      return JSON.parse(records).map((record, key) => {
+    // let records = localStorage.getItem('records');
+    if (this.state.records) {
+      return this.state.records.map((record, key) => {
         return (
           <Link key={key.toString()} to={`/recording/${record.id}`}>
             <Record
@@ -29,8 +35,32 @@ class Records extends React.Component {
     }
   }
 
+  add() {
+    localStorage.setItem(
+      'records',
+      JSON.stringify([
+        ...this.state.records,
+        {
+          id: `${this.state.records.length}`,
+          name: `${new Date().toLocaleDateString('en-US')}`,
+          articles: []
+        }
+      ])
+    );
+    this.props.history.push(`/recording/${this.state.records.length}`);
+  }
+
   render() {
-    return <div className="grid-container">{this.renderRecords()}</div>;
+    return (
+      <div className="grid-container">
+        {this.renderRecords()}
+        <Card onClick={this.add} className="card-add-record">
+          <CardText>
+            <h2>+</h2>
+          </CardText>
+        </Card>
+      </div>
+    );
   }
 }
 
