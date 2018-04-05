@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './records.css';
 import Record from '../record/record';
@@ -12,15 +13,17 @@ class Records extends React.Component {
   renderRecords() {
     let records = localStorage.getItem('records');
     if (records) {
-      const renders = [];
-      records = JSON.parse(records);
-      for (let i = 0; i < records.length; i++) {
-        const record = records[i];
-        renders.push(
-          <Record key={i} name={record.name} articles={record.articles} />
+      return JSON.parse(records).map((record, key) => {
+        return (
+          <Link key={key.toString()} to={`/recording/${record.id}`}>
+            <Record
+              key={key.toString()}
+              name={record.name}
+              articles={record.articles}
+            />
+          </Link>
         );
-      }
-      return renders;
+      });
     } else {
       return <div />;
     }

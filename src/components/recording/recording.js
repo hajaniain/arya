@@ -7,15 +7,36 @@ class Recording extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articles: []
+      articles: [],
+      records: JSON.parse(localStorage.getItem('records')),
+      id: props.match.params.id
     };
     this.addArticle = this.addArticle.bind(this);
+    this.initialize = this.initialize.bind(this);
+  }
+
+  componentDidMount() {
+    this.initialize();
+  }
+
+  initialize() {
+    const { articles } = this.state.records[this.state.id];
+    this.setState(state => ({
+      articles
+    }));
   }
 
   addArticle(article) {
+    const { articles, records } = {
+      articles: [...this.state.articles, article],
+      records: [...this.state.records]
+    };
+    records[this.state.id].articles = articles;
     this.setState(state => ({
-      articles: [...this.state.articles, article]
+      articles,
+      records
     }));
+    localStorage.setItem('records', JSON.stringify(this.state.records));
   }
 
   handleToAdd(article) {

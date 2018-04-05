@@ -9,13 +9,10 @@ class Articles extends React.Component {
   }
 
   renderArticles() {
-    let articles = [];
-    for (let i = 0; i < this.props.articles.length; i++) {
-      const article = this.props.articles[i];
-      articles.push(<Article key={i} id={i} price={article.price} name={article.name} />);
-    }
-    return articles;
-	}
+    return this.props.articles.map((article, key) => (
+      <Article key={key} id={key} price={article.price} name={article.name} />
+    ));
+  }
 
   render() {
     return (
