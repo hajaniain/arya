@@ -18,7 +18,9 @@
       "DIALOG",
       "INPUT",
       "CARD",
-      "LAYOUT"
+      "LAYOUT",
+      "NAVIGATION",
+      "LINK"
     ],
     "customProperties": {
       "animation-duration": "0.3s",

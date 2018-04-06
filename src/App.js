@@ -10,15 +10,18 @@ import 'material-design-icons/iconfont/material-icons.css';
 import Records from './components/records/records';
 import Recording from './components/recording/recording';
 
+
 class App extends Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div>
           <ThemeProvider theme={theme}>
             <div>
-              <Route exact path="/" component={Records} />
-              <Route path="/recording/:id" component={Recording} />
+              <div className="App">
+                <Route exact path="/" component={Records} />
+                <Route path="/recording/:id" component={Recording} />
+              </div>
             </div>
           </ThemeProvider>
         </div>
