@@ -13,7 +13,7 @@ export default function Recording(props) {
     setArticles(records[id].articles);
   });
 
-  function addArticle(article) {
+  function add(article) {
     const items = [...articles, article];
     const recs = [...records];
 
@@ -24,10 +24,6 @@ export default function Recording(props) {
     localStorage['records'] = JSON.stringify(records);
   }
 
-  function handleToAdd(article) {
-    addArticle(article);
-  }
-
   const sum = articles.reduce(
     (prev, next) => prev + parseInt(next.price, 10),
     0
@@ -36,7 +32,7 @@ export default function Recording(props) {
   return (
     <div>
       <h2>Sum: {sum}</h2>
-      <AddForm article={handleToAdd} />
+      <AddForm article={add} />
       <Articles articles={articles} />
     </div>
   );
