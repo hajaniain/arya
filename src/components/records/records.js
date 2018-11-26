@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Card from 'react-toolbox/lib/card/Card';
 import CardText from 'react-toolbox/lib/card/CardText';
@@ -6,20 +6,14 @@ import './records.css';
 
 import Record from '../record/record';
 
-class Records extends React.Component {
-  constructor(props) {
-    super(props);
-    const records = localStorage.getItem('records');
-    this.state = {
-      records: records ? JSON.parse(records) : []
-    };
-    this.add = this.add.bind(this);
-  }
+export default function Records(props) {
 
-  renderRecords() {
-    // let records = localStorage.getItem('records');
-    if (this.state.records) {
-      return this.state.records.map((record, key) => {
+  const currentRecords = JSON.parse(localStorage['records'] || '[]');
+  const [records, setRecords] = useState(currentRecords);
+
+  function renderRecords() {
+    if (records) {
+      return records.map((record, key) => {
         return (
           <Link key={key.toString()} to={`/recording/${record.id}`}>
             <Record
@@ -35,30 +29,27 @@ class Records extends React.Component {
     }
   }
 
-  add() {
+  function add() {
     const newRecord = {
-      id: `${this.state.records.length}`,
+      id: `${records.length}`,
       name: `${new Date().toLocaleDateString('en-US')}`,
       articles: []
     };
-    const records = JSON.stringify([...this.state.records, newRecord]);
+    const recs = JSON.stringify([...records, newRecord])
+    setRecords(recs);
 
-    localStorage.setItem('records', records);
-    this.props.history.push(`/recording/${this.state.records.length}`);
+    localStorage['records'] = recs;
+    props.history.push(`/recording/${records.length}`);
   }
 
-  render() {
-    return (
-      <div className="grid-container">
-        {this.renderRecords()}
-        <Card onClick={this.add} className="card-add-record">
-          <CardText>
-            <h2>+</h2>
-          </CardText>
-        </Card>
-      </div>
-    );
-  }
+  return (
+    <div className="grid-container">
+      {renderRecords()}
+      <Card onClick={add} className="card-add-record">
+        <CardText>
+          <h2>+</h2>
+        </CardText>
+      </Card>
+    </div>
+  );
 }
-
-export default Records;

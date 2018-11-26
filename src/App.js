@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import theme from './assets/react-toolbox/theme';
 import ThemeProvider from 'react-toolbox/lib/ThemeProvider';
@@ -10,24 +10,20 @@ import 'material-design-icons/iconfont/material-icons.css';
 import Records from './components/records/records';
 import Recording from './components/recording/recording';
 
-
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <div>
-          <ThemeProvider theme={theme}>
-            <div>
-              <div className="App">
-                <Route exact path="/" component={Records} />
-                <Route path="/recording/:id" component={Recording} />
-              </div>
+export default function App(props) {
+  return (
+    <Router>
+      <div>
+        <ThemeProvider theme={theme}>
+          <div>
+            <div className="App">
+              <Route exact path="/" component={Records} />
+              <Route path="/recording/:id" component={Recording} />
             </div>
-          </ThemeProvider>
-        </div>
-      </Router>
-    );
-  }
+          </div>
+        </ThemeProvider>
+      </div>
+    </Router>
+  );
 }
 
-export default App;
