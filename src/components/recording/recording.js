@@ -3,8 +3,6 @@ import React from 'react';
 import Articles from '../articles/articles';
 import AddForm from '../add-form/add-form';
 
-import Toolbar from '../toolbar/toolbar';
-
 class Recording extends React.Component {
   constructor(props) {
     super(props);
@@ -52,7 +50,6 @@ class Recording extends React.Component {
     );
     return (
       <div>
-        <Toolbar />
         <h2>Sum: {sum}</h2>
         <AddForm article={this.handleToAdd.bind(this)} />
         <Articles articles={this.state.articles} />
