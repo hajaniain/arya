@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Card from 'react-toolbox/lib/card/Card';
 import CardText from 'react-toolbox/lib/card/CardText';
+import Record from '../record/record';
 import './records.css';
 
-import Record from '../record/record';
-
 export default function Records(props) {
-
   const currentRecords = JSON.parse(localStorage['records'] || '[]');
   const [records, setRecords] = useState(currentRecords);
 
@@ -15,13 +12,14 @@ export default function Records(props) {
     if (records) {
       return records.map((record, key) => {
         return (
-          <Link key={key.toString()} to={`/recording/${record.id}`}>
-            <Record
-              key={key.toString()}
-              name={record.name}
-              articles={record.articles}
-            />
-          </Link>
+          <Record
+            key={key.toString()}
+            id={key.toString()}
+            records={records}
+            setRecords={setRecords}
+            name={record.name}
+            articles={record.articles}
+          />
         );
       });
     } else {
@@ -30,12 +28,19 @@ export default function Records(props) {
   }
 
   function add() {
+    const currentDate = new Date().toLocaleDateString('en-US');
+    const todaysRecords = records.filter(
+      record => record.name.indexOf(`${currentDate}`) >= 0
+    );
+    const recordName = `${currentDate}${
+      todaysRecords.length > 0 ? '(' + todaysRecords.length + ')' : ''
+    }`;
     const newRecord = {
       id: `${records.length}`,
-      name: `${new Date().toLocaleDateString('en-US')}`,
+      name: recordName,
       articles: []
     };
-    const recs = JSON.stringify([...records, newRecord])
+    const recs = JSON.stringify([...records, newRecord]);
     setRecords(recs);
 
     localStorage['records'] = recs;

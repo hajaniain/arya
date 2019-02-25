@@ -3,9 +3,17 @@ import React from 'react';
 import Article from '../article/article';
 
 export default function Articles(props) {
+  const { setArticles } = props;
   function renderArticles() {
     return props.articles.map((article, key) => (
-      <Article key={key} id={key} price={article.price} name={article.name} />
+      <Article
+        key={key}
+        id={key}
+        recordId={props.recordId}
+        setArticles={setArticles}
+        price={article.price}
+        name={article.name}
+      />
     ));
   }
 

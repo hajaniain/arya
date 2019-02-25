@@ -23,12 +23,17 @@ export default function AddForm(props) {
   return (
     <Card className="Add-card">
       <CardText>
-        <Input type="text" label="Name" value={name} onChange={setName} />
+        <Input
+          type="text"
+          label="Name"
+          value={name}
+          onChange={name => setName(name)}
+        />
         <Input
           type="number"
           label="Price"
           value={price}
-          onChange={setPrice}
+          onChange={price => setPrice(price)}
           id="inputPrice"
         />
         <Button

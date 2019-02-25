@@ -5,9 +5,10 @@ import AddForm from '../add-form/add-form';
 
 export default function Recording(props) {
   const currentRecords = JSON.parse(localStorage['records'] || '[]');
+  const recordId = props.match.params.id;
   const [articles, setArticles] = useState([]);
   const [records, setRecords] = useState(currentRecords);
-  const [id] = useState(props.match.params.id);
+  const [id] = useState(recordId);
 
   useEffect(() => {
     setArticles(records[id].articles);
@@ -33,7 +34,11 @@ export default function Recording(props) {
     <div>
       <h2>Sum: {sum}</h2>
       <AddForm article={add} />
-      <Articles articles={articles} />
+      <Articles
+        articles={articles}
+        recordId={recordId}
+        setArticles={setArticles}
+      />
     </div>
   );
 }
