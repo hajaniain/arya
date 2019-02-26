@@ -3,9 +3,10 @@ import Card from 'react-toolbox/lib/card/Card';
 import CardText from 'react-toolbox/lib/card/CardText';
 import Record from '../record/record';
 import './records.css';
+import { AppService } from '../../services/app-service';
 
 export default function Records(props) {
-  const currentRecords = JSON.parse(localStorage['records'] || '[]');
+  const currentRecords = AppService.getRecords();
   const [records, setRecords] = useState(currentRecords);
 
   function renderRecords() {
@@ -40,10 +41,10 @@ export default function Records(props) {
       name: recordName,
       articles: []
     };
-    const recs = JSON.stringify([...records, newRecord]);
+    const recs = [...records, newRecord];
     setRecords(recs);
 
-    localStorage['records'] = recs;
+    AppService.setRecords(recs);
     props.history.push(`/recording/${records.length}`);
   }
 

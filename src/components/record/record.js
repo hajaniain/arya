@@ -6,6 +6,7 @@ import Card from 'react-toolbox/lib/card/Card';
 import CardText from 'react-toolbox/lib/card/CardText';
 import Button from 'react-toolbox/lib/button/Button';
 import Link from 'react-toolbox/lib/link/Link';
+import { AppService } from '../../services/app-service';
 
 export default function Record(props) {
   function handleRemove() {
@@ -13,7 +14,7 @@ export default function Record(props) {
     const recordIndex = parseInt(id, 10);
     const newRecords = [...records];
     newRecords.splice(recordIndex, 1);
-    localStorage['records'] = JSON.stringify(newRecords);
+    AppService.setRecords(newRecords);
     setRecords(newRecords);
   }
 

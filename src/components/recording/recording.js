@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 import Articles from '../articles/articles';
 import AddForm from '../add-form/add-form';
+import Link from 'react-toolbox/lib/link/Link';
+import { AppService } from '../../services/app-service';
+
+import './recording.css';
 
 export default function Recording(props) {
-  const currentRecords = JSON.parse(localStorage['records'] || '[]');
+  const currentRecords = AppService.getRecords();
   const recordId = props.match.params.id;
   const [articles, setArticles] = useState([]);
   const [records, setRecords] = useState(currentRecords);
@@ -14,15 +18,17 @@ export default function Recording(props) {
     setArticles(records[id].articles);
   });
 
+  function setArticlesOfRecord(articles) {
+    const recs = [...records];
+    recs[id].articles = articles;
+    setRecords(recs);
+    AppService.setRecords(records);
+  }
+
   function add(article) {
     const items = [...articles, article];
-    const recs = [...records];
-
-    recs[id].articles = items;
     setArticles(items);
-    setRecords(recs);
-
-    localStorage['records'] = JSON.stringify(records);
+    setArticlesOfRecord(items);
   }
 
   const sum = articles.reduce(
@@ -32,12 +38,15 @@ export default function Recording(props) {
 
   return (
     <div>
+      <Link className="records-link" href={'/'}>
+        Records
+      </Link>
       <h2>Sum: {sum}</h2>
       <AddForm article={add} />
       <Articles
         articles={articles}
         recordId={recordId}
-        setArticles={setArticles}
+        setArticles={setArticlesOfRecord}
       />
     </div>
   );
