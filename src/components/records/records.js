@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import Card from 'react-toolbox/lib/card/Card';
-import CardText from 'react-toolbox/lib/card/CardText';
+import Button from 'react-toolbox/lib/button/Button';
+import { AppService } from '../../services/app-service';
 import Record from '../record/record';
 import './records.css';
-import { AppService } from '../../services/app-service';
 
 export default function Records(props) {
   const currentRecords = AppService.getRecords();
@@ -11,18 +10,22 @@ export default function Records(props) {
 
   function renderRecords() {
     if (records) {
-      return records.map((record, key) => {
-        return (
-          <Record
-            key={key.toString()}
-            id={key.toString()}
-            records={records}
-            setRecords={setRecords}
-            name={record.name}
-            articles={record.articles}
-          />
-        );
-      });
+      return (
+        <div className="grid-container">
+          {records.map((record, key) => {
+            return (
+              <Record
+                key={key.toString()}
+                id={key.toString()}
+                records={records}
+                setRecords={setRecords}
+                name={record.name}
+                articles={record.articles}
+              />
+            );
+          })}
+        </div>
+      );
     } else {
       return <div />;
     }
@@ -49,13 +52,9 @@ export default function Records(props) {
   }
 
   return (
-    <div className="grid-container">
+    <div>
       {renderRecords()}
-      <Card onClick={add} className="card-add-record">
-        <CardText>
-          <h2>+</h2>
-        </CardText>
-      </Card>
+      <Button className="add-record-button" onClick={add} icon="add" label="Add" raised/>
     </div>
   );
 }
